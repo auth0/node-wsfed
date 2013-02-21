@@ -1,12 +1,15 @@
 {
   "name": "wsfed",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "WSFed server middleware",
   "main": "lib/wsfed.js",
   "scripts": {
     "test": "mocha"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auth0/node-wsfed.git"
+  },
   "keywords": [
     "wsfed",
     "saml",
