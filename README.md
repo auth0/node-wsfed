@@ -93,6 +93,8 @@ var server = http.createServer(app).listen(5050, callback);
 
 ~~~
 
+Notice that since this use [passport-windowsauth](https://github.com/auth0/passport-windowsauth) it will only runs under IIS/IISNode. However you can use any Passport.js strategy to create a Ws-Federation server.  
+
 ## License
 
 MIT - AUTH0 2013!
