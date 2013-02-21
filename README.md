@@ -19,7 +19,7 @@ The endpoint supports metadata as well in the url ```/FederationMetadata/2007-06
 Options
 
 | Name                | Description                                      | Default                                      |
-| --------------------|:------------------------------------------------:| --------------------------------------------:|
+| --------------------|:-------------------------------------------------| ---------------------------------------------|
 | cert                | public key used by this identity provider        | REQUIRED                                     |
 | key                 | private key used by this identity provider       | REQUIRED                                     |
 | callbackUrl         | the callback to post the token                   | REQUIRED                                     |
