@@ -1,10 +1,10 @@
 {
   "name": "wsfed",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "WSFed server middleware",
   "main": "lib/wsfed.js",
   "scripts": {
-    "test": "mocha --timeout 6000"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
