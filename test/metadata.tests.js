@@ -49,7 +49,7 @@ describe('wsfed metadata', function () {
 
     it('should not contain line breaks', function(){
       expect(content)
-        .to.not.contain('/n');
+        .to.not.contain('\n');
     });
   });
 });

@@ -36,10 +36,10 @@ module.exports.start = function(callback){
 
     //configure wsfed middleware
     this.use('/wsfed', wsfed({
-      issuer:   'fixture-test',
-      callback: 'http://office.google.com',
-      cert:     credentials.cert,
-      key:      credentials.key
+      issuer:       'fixture-test',
+      callbackUrl:  'http://office.google.com',
+      cert:         credentials.cert,
+      key:          credentials.key
     }));
 
   });
