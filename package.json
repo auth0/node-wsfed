@@ -1,10 +1,10 @@
 {
   "name": "wsfed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "WSFed server middleware",
   "main": "lib/wsfed.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 6000"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "request": "~2.14.0",
     "xmldom": "~0.1.13",
     "cheerio": "~0.10.7",
-    "xml-crypto": "0.0.10"
+    "xml-crypto": "0.0.10",
+    "xpath": "0.0.5"
   }
 }

@@ -77,4 +77,24 @@ describe('wsfed', function () {
       expect($('form').attr('action')).to.equal('http://office.google.com');
     });
   });
+
+  describe('when the audience has colon(:)', function (){
+    it('should work', function (done) {
+      request.get({
+        jar: request.jar(), 
+        uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:auth0:superclient'
+      }, function (err, response, b){
+        if(err) return done(err);
+        var body = b;
+        var $ = cheerio.load(body);
+        var wresult = $('input[name="wresult"]').attr('value');
+        var signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
+        
+        expect(utils.getAudiences(signedAssertion)[0].textContent)
+          .to.equal('urn:auth0:superclient');
+
+        done();
+      });
+    });
+  });
 });

@@ -3,6 +3,7 @@ var server = require('./fixture/server');
 var request = require('request');
 var xmldom = require('xmldom');
 var util = require('../lib/util');
+var xpath = require('xpath')
 
 describe('wsfed metadata', function () {
   before(function (done) {
@@ -13,7 +14,7 @@ describe('wsfed metadata', function () {
     server.close(done);
   });
 
-  describe('should work', function (){
+  describe('request to metadata', function (){
     var doc, content;
     before(function (done) {
       request.get({
@@ -51,5 +52,6 @@ describe('wsfed metadata', function () {
       expect(content)
         .to.not.contain('\n');
     });
+
   });
 });
