@@ -1,6 +1,6 @@
 WS Federation middleware for node.js.
 
-**This is still preliminary**
+[![Build Status](https://travis-ci.org/auth0/node-wsfed.png)](https://travis-ci.org/auth0/node-wsfed)
 
 ## Installation
 
