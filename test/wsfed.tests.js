@@ -72,6 +72,11 @@ describe('wsfed', function () {
       validateAttribute(4, 'surname',         server.fakeUser.name.familyName);
     });
 
+    it('should contains the name identifier', function(){
+      expect(xmlhelper.getNameIdentifier(signedAssertion).textContent)
+        .to.equal(server.fakeUser.id);
+    });
+
     it('should contains the issuer', function(){
       expect(xmlhelper.getIssuer(signedAssertion))
         .to.equal('urn:fixture-test');
