@@ -2,8 +2,7 @@ var expect = require('chai').expect;
 var server = require('./fixture/server');
 var request = require('request');
 var cheerio = require('cheerio');
-var utils = require('./utils');
-var fs = require('fs');
+var xmlhelper = require('./xmlhelper');
 
 describe('wsfed', function () {
   before(function (done) {
@@ -27,7 +26,7 @@ describe('wsfed', function () {
         $ = cheerio.load(body);
         var wresult = $('input[name="wresult"]').attr('value');
         signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
-        attributes = utils.getAttributes(signedAssertion);
+        attributes = xmlhelper.getAttributes(signedAssertion);
         done();
       });
     });
@@ -41,10 +40,20 @@ describe('wsfed', function () {
     });
 
     it('should contain a valid signal assertion', function(){
-      var isValid = utils.isValidSignature(
+      var isValid = xmlhelper.verifySignature(
                 signedAssertion, 
                 server.credentials.cert);
       expect(isValid).to.be.ok;
+    });
+
+    it('should use sha256 as default signature algorithm', function(){
+      var algorithm = xmlhelper.getSignatureMethodAlgorithm(signedAssertion);
+      expect(algorithm).to.equal('http://www.w3.org/2001/04/xmldsig-more#rsa-sha256');
+    });
+
+    it('should use sha256 as default diigest algorithm', function(){
+      var algorithm = xmlhelper.getDigestMethodAlgorithm(signedAssertion);
+      expect(algorithm).to.equal('http://www.w3.org/2001/04/xmlenc#sha256');
     });
 
 
@@ -64,12 +73,12 @@ describe('wsfed', function () {
     });
 
     it('should contains the issuer', function(){
-      expect(utils.getIssuer(signedAssertion))
+      expect(xmlhelper.getIssuer(signedAssertion))
         .to.equal('urn:fixture-test');
     });
 
     it('should contains the audiences', function(){
-      expect(utils.getAudiences(signedAssertion)[0].textContent)
+      expect(xmlhelper.getAudiences(signedAssertion)[0].textContent)
         .to.equal('urn:the-super-client-id');
     });
 
@@ -90,7 +99,7 @@ describe('wsfed', function () {
         var wresult = $('input[name="wresult"]').attr('value');
         var signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
         
-        expect(utils.getAudiences(signedAssertion)[0].textContent)
+        expect(xmlhelper.getAudiences(signedAssertion)[0].textContent)
           .to.equal('urn:auth0:superclient');
 
         done();

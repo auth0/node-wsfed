@@ -27,6 +27,8 @@ Options
 | validateAudience    | is this audience valid                           | function(aud, cb) { cb(null); }              |
 | getUserFromRequest  | how to extract the user information from request | function(req) { return req.user; }           |
 | profileMapper       | how to map the user information to claims        | function(prof) { return FromPassport(prof) } |
+| signatureAlgorithm  | signature algorithm, options: rsa-sha1, rsa-sha256 | ```'rsa-sha256'``` |
+| digestAlgorithm     | digest algorithm, options: sha1, sha256          | ```'sha256'``` |
 
 
 Add the middleware as follows:

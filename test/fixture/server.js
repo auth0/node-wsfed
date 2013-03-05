@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var wsfed = require('../../lib/wsfed');
-
+var xtend = require('xtend');
 var fs = require('fs');
 var path = require('path');
 
@@ -25,7 +25,12 @@ var credentials = {
   key:      fs.readFileSync(path.join(__dirname, 'wsfed.test-cert.key'))
 };
 
-module.exports.start = function(callback){
+module.exports.start = function(options, callback){
+  if (typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
   var app = express();
 
   app.configure(function(){
@@ -35,12 +40,12 @@ module.exports.start = function(callback){
     });
 
     //configure wsfed middleware
-    this.use('/wsfed', wsfed({
-      issuer:       'fixture-test',
-      callbackUrl:  'http://office.google.com',
-      cert:         credentials.cert,
-      key:          credentials.key
-    }));
+    this.use('/wsfed', wsfed(xtend({}, {
+      issuer:             'fixture-test',
+      callbackUrl:        'http://office.google.com',
+      cert:               credentials.cert,
+      key:                credentials.key
+    }, options)));
 
   });
 
