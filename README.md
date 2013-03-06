@@ -34,13 +34,29 @@ Options
 Add the middleware as follows:
 
 ~~~javascript
-app.use('/wsfed', wsfed({
+app.get('/wsfed', wsfed.auth({
   issuer:   'the-issuer',
   callback: 'http://myapp/callback',
   cert:     fs.readFileSync(path.join(__dirname, 'some-cert.pem')),
   key:      fs.readFileSync(path.join(__dirname, 'some-cert.key')),
 }));
 ~~~~
+
+## WsFederation Metadata
+
+wsfed can generate the metadata document for wsfederation as well. Usage as follows:
+
+~~~javascript
+app.get('/wsfed/FederationMetadata/2007-06/FederationMetadata.xml', wsfed.metadata({
+  issuer:   'the-issuer',
+  cert:     fs.readFileSync(path.join(__dirname, 'some-cert.pem')),
+}));
+~~~
+
+It also accept two optionals parameters:
+
+-  profileMapper: a class implementing the profile mapper. This is used to render the claims type information (using the metadata property). See [PassportProfileMapper](https://github.com/auth0/node-wsfed/blob/master/lib/claims/PassportProfileMapper.js) for more information.
+-  endpointPath: this is the full path in your server to the auth route. By default the metadata handler uses the metadata request route without ```/FederationMetadata/2007..blabla.```
 
 ## Example micro-adfs
 
