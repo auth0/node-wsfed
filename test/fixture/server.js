@@ -1,6 +1,6 @@
 var express = require('express');
 var http = require('http');
-var wsfed = require('../../lib/wsfed');
+var wsfed = require('../../lib');
 var xtend = require('xtend');
 var fs = require('fs');
 var path = require('path');
@@ -39,15 +39,24 @@ module.exports.start = function(options, callback){
       next();
     });
 
-    //configure wsfed middleware
-    this.use('/wsfed', wsfed(xtend({}, {
-      issuer:             'fixture-test',
-      callbackUrl:        'http://office.google.com',
-      cert:               credentials.cert,
-      key:                credentials.key
-    }, options)));
+
 
   });
+
+  app.get('/wsfed/FederationMetadata/2007-06/FederationMetadata.xml',
+      wsfed.metadata({
+        cert:   credentials.cert,
+        issuer: 'fixture-test'
+      }));
+
+  //configure wsfed middleware
+  app.get('/wsfed', 
+      wsfed.auth(xtend({}, {
+        issuer:             'fixture-test',
+        callbackUrl:        'http://office.google.com',
+        cert:               credentials.cert,
+        key:                credentials.key
+      }, options)));
 
   var server = http.createServer(app).listen(5050, callback);
   module.exports.close = server.close.bind(server);

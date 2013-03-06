@@ -1,8 +1,8 @@
 {
   "name": "wsfed",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "WSFed server middleware",
-  "main": "lib/wsfed.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha"
   },

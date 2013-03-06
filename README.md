@@ -80,16 +80,22 @@ app.configure(function(){
   this.use(express.session({ secret: 'keyboard cat' }));
   this.use(passport.initialize());
   this.use(passport.session());
-  this.use('/wsfed',   
-    passport.authenticate('WindowsAuthentication', { session: false }),
-    wsfed({
-      issuer:   'fixture-test',
-      callback: 'http://office.google.com',
-      cert:     serverSigning.cert,
-      key:      serverSigning.key
-    }));
-
 });
+
+app.get('/wsfed/FederationMetadata/2007-06/FederationMetadata.xml',
+  wsfed.metadata({
+    cert:   serverSigning.cert,
+    issuer: 'fixture-test'
+  }));
+
+app.get('/wsfed',   
+  passport.authenticate('WindowsAuthentication', { session: false }),
+  wsfed.auth({
+    issuer:      'fixture-test',
+    callbackUrl: 'http://office.google.com',
+    cert:        serverSigning.cert,
+    key:         serverSigning.key
+  }));
 
 var server = http.createServer(app).listen(5050, callback);
 
