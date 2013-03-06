@@ -29,6 +29,7 @@ Options
 | profileMapper       | mapper to map users to claims (see PassportProfileMapper)| PassportProfileMapper |
 | signatureAlgorithm  | signature algorithm, options: rsa-sha1, rsa-sha256 | ```'rsa-sha256'``` |
 | digestAlgorithm     | digest algorithm, options: sha1, sha256          | ```'sha256'``` |
+| wctx                | state of the auth process                        | ```req.query.wctx``` |
 
 
 Add the middleware as follows:
