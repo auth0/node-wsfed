@@ -24,7 +24,7 @@ Options
 | key                 | private key used by this identity provider       | REQUIRED                                     |
 | callbackUrl         | the callback to post the token                   | REQUIRED                                     |
 | issuer              | the name of the issuer of the token              | REQUIRED                                     |
-| validateAudience    | is this audience valid                           | function(aud, cb) { cb(null); }              |
+| validateAudience    | is this audience valid                           | function(aud, cb) { cb(null, aud); }              |
 | getUserFromRequest  | how to extract the user information from request | function(req) { return req.user; }           |
 | profileMapper       | mapper to map users to claims (see PassportProfileMapper)| PassportProfileMapper |
 | signatureAlgorithm  | signature algorithm, options: rsa-sha1, rsa-sha256 | ```'rsa-sha256'``` |
