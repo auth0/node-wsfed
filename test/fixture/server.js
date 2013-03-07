@@ -49,6 +49,9 @@ module.exports.start = function(options, callback){
         issuer: 'fixture-test'
       }));
 
+  app.get('/wsfed/adfs/fs/federationserverservice.asmx',
+      wsfed.federationServerService);
+  
   //configure wsfed middleware
   app.get('/wsfed', 
       wsfed.auth(xtend({}, {
