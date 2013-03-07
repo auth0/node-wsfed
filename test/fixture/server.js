@@ -50,8 +50,13 @@ module.exports.start = function(options, callback){
       }));
 
   app.get('/wsfed/adfs/fs/federationserverservice.asmx',
-      wsfed.federationServerService);
-  
+      wsfed.federationServerService.wsdl);
+
+  app.post('/wsfed/adfs/fs/federationserverservice.asmx',
+      wsfed.federationServerService.thumbprint({
+        cert:               credentials.cert
+      }));
+
   //configure wsfed middleware
   app.get('/wsfed', 
       wsfed.auth(xtend({}, {
