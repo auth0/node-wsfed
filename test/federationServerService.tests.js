@@ -62,27 +62,28 @@ describe('wsfed federationserverservice', function () {
     });
   });
 
-  // describe.only('when posting to the thumbprint endpoint', function () {
-  //   var doc;
+  describe.only('when posting to the thumbprint endpoint', function () {
+    var doc;
 
-  //   before(function (done) {
-  //     request.post({
-  //       jar: request.jar(), 
-  //       uri: 'http://localhost:5050/wsfed/adfs/fs/federationserverservice.asmx'
-  //     }, function (err, response, b){
-  //       if(err) return done(err);
-  //       console.log(b);
-  //       doc = new xmldom.DOMParser().parseFromString(b).documentElement;
-  //       done();
-  //     });
-  //   });
+    before(function (done) {
+      request.post({
+        jar: request.jar(), 
+        uri: 'http://localhost:5050/wsfed/adfs/fs/federationserverservice.asmx'
+      }, function (err, response, b){
+        if(err) return done(err);
+        //not sure how to test this yet... 
+        //console.log(b);
+        doc = new xmldom.DOMParser().parseFromString(b).documentElement;
+        done();
+      });
+    });
 
-  //   it('should have have portType', function(){
-  //     // var portType = doc.getElementsByTagName('wsdl:portType')[0]
-  //     //   .getAttribute('name');
+    it('should have have portType', function(){
+      // var portType = doc.getElementsByTagName('wsdl:portType')[0]
+      //   .getAttribute('name');
 
-  //     // expect(portType)
-  //     //   .to.equal('ITrustInformationContract');
-  //   });
-  // });
+      // expect(portType)
+      //   .to.equal('ITrustInformationContract');
+    });
+  });
 });
