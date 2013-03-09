@@ -62,7 +62,7 @@ describe('wsfed federationserverservice', function () {
     });
   });
 
-  describe.only('when posting to the thumbprint endpoint', function () {
+  describe('when posting to the thumbprint endpoint', function () {
     var doc;
 
     before(function (done) {
@@ -72,7 +72,7 @@ describe('wsfed federationserverservice', function () {
       }, function (err, response, b){
         if(err) return done(err);
         //not sure how to test this yet... 
-        //console.log(b);
+        console.log(b);
         doc = new xmldom.DOMParser().parseFromString(b).documentElement;
         done();
       });

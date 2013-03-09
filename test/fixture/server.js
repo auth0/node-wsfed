@@ -22,7 +22,8 @@ var fakeUser = {
 
 var credentials = {
   cert:     fs.readFileSync(path.join(__dirname, 'wsfed.test-cert.pem')),
-  key:      fs.readFileSync(path.join(__dirname, 'wsfed.test-cert.key'))
+  key:      fs.readFileSync(path.join(__dirname, 'wsfed.test-cert.key')),
+  pkcs7:    fs.readFileSync(path.join(__dirname, 'wsfed.test-cert.pb7'))
 };
 
 module.exports.start = function(options, callback){
@@ -54,7 +55,8 @@ module.exports.start = function(options, callback){
 
   app.post('/wsfed/adfs/fs/federationserverservice.asmx',
       wsfed.federationServerService.thumbprint({
-        cert:               credentials.cert
+        pkcs7: credentials.pkcs7,
+        cert:  credentials.cert
       }));
 
   //configure wsfed middleware
