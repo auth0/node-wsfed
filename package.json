@@ -18,7 +18,7 @@
   "author": "Auth0",
   "license": "mit",
   "dependencies": {
-    "saml": "~0.2.0",
+    "saml": "~0.2.5",
     "ejs": "~0.8.3",
     "thumbprint": "0.0.1"
   },
