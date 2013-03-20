@@ -1,0 +1,19 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'test' ]
+2 info using npm@1.2.14
+3 info using node@v0.8.2
+4 verbose read json /home/jose/oss/wsfed-server/test/fixture/package.json
+5 error Error: ENOENT, open '/home/jose/oss/wsfed-server/test/fixture/package.json'
+6 error If you need help, you may report this log at:
+6 error     <http://github.com/isaacs/npm/issues>
+6 error or email it to:
+6 error     <npm-@googlegroups.com>
+7 error System Linux 3.5.0-26-generic
+8 error command "/usr/local/bin/node" "/usr/local/bin/npm" "test"
+9 error cwd /home/jose/oss/wsfed-server/test/fixture
+10 error node -v v0.8.2
+11 error npm -v 1.2.14
+12 error path /home/jose/oss/wsfed-server/test/fixture/package.json
+13 error code ENOENT
+14 error errno 34
+15 verbose exit [ 34, true ]
