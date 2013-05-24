@@ -1,6 +1,6 @@
 {
   "name": "wsfed",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "WSFed server middleware",
   "main": "lib/index.js",
   "scripts": {
