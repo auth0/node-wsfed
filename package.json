@@ -1,6 +1,6 @@
 {
   "name": "wsfed",
-  "version": "0.3.11",
+  "version": "0.4.0",
   "description": "WSFed server middleware",
   "main": "lib/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "ejs": "~0.8.3",
     "thumbprint": "0.0.1",
-    "saml": "~0.4.1"
+    "saml": "~0.4.3"
   },
   "devDependencies": {
     "chai": "~1.5.0",
