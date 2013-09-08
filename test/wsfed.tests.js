@@ -3,6 +3,8 @@ var server = require('./fixture/server');
 var request = require('request');
 var cheerio = require('cheerio');
 var xmlhelper = require('./xmlhelper');
+var fs = require('fs');
+var path = require('path');
 
 describe('wsfed', function () {
   before(function (done) {
@@ -162,9 +164,10 @@ describe('wsfed', function () {
       }, function (err, response){
         if(err) return done(err);
         expect(response.statusCode)
-          .to.equal(401);
+          .to.equal(400);
         done();
       });
     });
   });
 });
+
