@@ -20,9 +20,8 @@
   "dependencies": {
     "ejs": "~0.8.3",
     "thumbprint": "0.0.1",
-    "saml": "~0.5.0",
-    "jsonwebtoken": "~0.1.0",
-    "ursa": "~0.8.0"
+    "saml": "~0.6.1",
+    "jsonwebtoken": "~0.1.0"
   },
   "devDependencies": {
     "chai": "~1.5.0",
@@ -34,6 +33,6 @@
     "xml-crypto": "0.0.10",
     "xpath": "0.0.5",
     "xtend": "~2.0.3",
-    "xml-encryption": "~0.1.0"
+    "xml-encryption": "~0.3.0"
   }
 }
