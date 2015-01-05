@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 var xmlhelper = require('./xmlhelper');
 var fs = require('fs');
 
-describe('wsfed', function () {
+describe('wsfed with custom form', function () {
   before(function (done) {
     server.start({
       formTemplate: fs.readFileSync(__dirname + '/custom_form.html').toString()
