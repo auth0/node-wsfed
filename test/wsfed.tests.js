@@ -156,6 +156,27 @@ describe('wsfed', function () {
     });
   });
 
+  describe('when attribute has accent', function (){
+    it('should return escaped value', function (done) {
+      server.fakeUser.nickname = 'josé!';
+      request.get({
+        jar: request.jar(),
+        uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wtrealm=urn:auth0:superclient'
+      }, function (err, response, b){
+        if(err) return done(err);
+        var body = b;
+        var $ = cheerio.load(body);
+        var wresult = $('input[name="wresult"]').attr('value');
+
+        expect(wresult.indexOf('jos&#233;!'))
+          .to.be.above(-1);
+
+        delete server.fakeUser.nickname;
+        done();
+      });
+    });
+  });
+
   describe('when using an invalid callback url', function () {
     it('should return error', function(done){
       request.get({
