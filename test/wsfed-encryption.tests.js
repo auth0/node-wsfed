@@ -54,10 +54,24 @@ describe('when dwdw encrypting the assertion', function () {
 
     it('should contain a valid encrypted xml with the assertion', function(done){
       xmlenc.decrypt(encryptedAssertion, { key: credentials.key }, function(err, decrypted) {
-        var isValid = xmlhelper.verifySignature(
-                decrypted, 
-                credentials.cert);
+        var isValid = xmlhelper.verifySignature(decrypted, credentials.cert);
         expect(isValid).to.be.ok;
+
+        var attributes = xmlhelper.getAttributes(decrypted);
+
+        function validateAttribute(position, name, value) {
+          expect(attributes[position].getAttribute('AttributeName'))
+            .to.equal(name);
+          expect(attributes[position].firstChild.textContent)
+            .to.equal(value);
+        }
+
+        validateAttribute(0, 'nameidentifier', server.fakeUser.id);
+        validateAttribute(1, 'emailaddress',   server.fakeUser.emails[0].value);
+        validateAttribute(2, 'name',           server.fakeUser.displayName);
+        validateAttribute(3, 'givenname',      server.fakeUser.name.givenName);
+        validateAttribute(4, 'surname',        server.fakeUser.name.familyName);
+
         done();
       });
     });
