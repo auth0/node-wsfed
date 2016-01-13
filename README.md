@@ -39,7 +39,7 @@ app.get('/wsfed', wsfed.auth({
   issuer:     'the-issuer',
   cert:       fs.readFileSync(path.join(__dirname, 'some-cert.pem')),
   key:        fs.readFileSync(path.join(__dirname, 'some-cert.key')),
-  getPostUrl: function (wtrealm, wreply, req, callback) { 
+  getPostUrl: function (wtrealm, wreply, req, callback) {
                 return cb( null, 'http://someurl.com')
               }
 }));
@@ -83,7 +83,7 @@ openssl crl2pkcs7 -nocrl \
     -certfile your.crt \
     -certfile another-cert-in-the-chain.crt \
     -out contoso1.p7b
-~~~ 
+~~~
 
 ## JWT
 
@@ -94,7 +94,7 @@ app.get('/wsfed', wsfed.auth({
   jwt:        true,
   issuer:     'the-issuer',
   key:        fs.readFileSync(path.join(__dirname, 'some-cert.key')),
-  getPostUrl: function (wtrealm, wreply, req, callback) { 
+  getPostUrl: function (wtrealm, wreply, req, callback) {
                 return cb( null, 'http://someurl.com')
               }
 }));
@@ -104,6 +104,10 @@ app.get('/wsfed', wsfed.auth({
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
+## Author
+
+[Auth0](auth0.com)
+
 ## License
 
-MIT - AUTH0 2013!
+This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
