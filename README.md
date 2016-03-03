@@ -30,7 +30,7 @@ Options
 | signatureAlgorithm  | signature algorithm, options: rsa-sha1, rsa-sha256 | ```'rsa-sha256'``` |
 | digestAlgorithm     | digest algorithm, options: sha1, sha256          | ```'sha256'``` |
 | wctx                | state of the auth process                        | ```req.query.wctx``` |
-| samlVersion         | the version for the saml token `1|2`             | ```1``` |
+| samlVersion         | the version for the saml token `'1.1'|'2.0'`     | ```'1.1'``` |
 
 
 Add the middleware as follows:
