@@ -1,6 +1,6 @@
 {
   "name": "wsfed",
-  "version": "3.1.4",
+  "version": "3.2.0",
   "description": "WSFed server middleware",
   "main": "lib/index.js",
   "scripts": {
@@ -18,9 +18,9 @@
   "author": "Auth0",
   "license": "mit",
   "dependencies": {
-    "ejs": "~0.8.3",
+    "ejs": "2.5.5",
     "jsonwebtoken": "~5.0.4",
-    "saml": "^0.9.3",
+    "saml": "0.11.0",
     "thumbprint": "0.0.1"
   },
   "devDependencies": {
@@ -29,10 +29,10 @@
     "mocha": "~1.8.1",
     "request": "~2.14.0",
     "xmldom": "=0.1.15",
-    "cheerio": "~0.10.7",
+    "cheerio": "0.22.0",
     "xml-crypto": "~0.0.20",
     "xpath": "0.0.5",
     "xtend": "~2.0.3",
-    "xml-encryption": "~0.7.2"
+    "xml-encryption": "0.11.0"
   }
 }

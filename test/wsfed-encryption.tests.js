@@ -38,7 +38,7 @@ describe('when dwdw encrypting the assertion', function () {
         if(err) return done(err);
         body = b;
         $ = cheerio.load(body);
-        var wresult = $('input[name="wresult"]').attr('value');
+        var wresult = $('input[name="wresult"]').attr('value');        
         encryptedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
         done();
       });
@@ -54,6 +54,7 @@ describe('when dwdw encrypting the assertion', function () {
 
     it('should contain a valid encrypted xml with the assertion', function(done){
       xmlenc.decrypt(encryptedAssertion, { key: credentials.key }, function(err, decrypted) {
+
         var isValid = xmlhelper.verifySignature(decrypted, credentials.cert);
         expect(isValid).to.be.ok;
 
