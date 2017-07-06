@@ -20,7 +20,7 @@
   "dependencies": {
     "ejs": "2.5.5",
     "jsonwebtoken": "~5.0.4",
-    "saml": "0.12.0",
+    "saml": "^0.12.1",
     "thumbprint": "0.0.1"
   },
   "devDependencies": {
