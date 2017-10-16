@@ -80,7 +80,6 @@ describe('wsfed+jwt', function () {
           jwt.verify(signedAssertion, credentials.cert.toString(), function (err, decoded) {
             if (err) return done(err);
             profile = decoded;
-            console.log(decoded);
             done();
           });
         });
