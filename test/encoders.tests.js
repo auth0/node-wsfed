@@ -2,7 +2,6 @@ var assert = require('assert');
 var encoders = require('../lib/encoders');
 var fixtures = require('./fixture/server');
 
-
 describe('encoders', function () {
   describe('thumbprint', function () {
     it('should return the thumbprint in all caps', function () {
