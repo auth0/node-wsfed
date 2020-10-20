@@ -169,5 +169,39 @@ describe('wsfed', function () {
       });
     });
   });
+
+  describe('using custom profile mapper', function() {
+    describe('when NameIdentifier is not found', function(){
+      function ProfileMapper(user) {
+        this.user = user;
+      }
+      ProfileMapper.prototype.getClaims = function () {
+        return this.user;
+      }
+      ProfileMapper.prototype.getNameIdentifier = function () {
+        return null;
+      }
+
+      before(function () {
+        server.options = {
+          profileMapper: function createProfileMapper(user) {
+            return new ProfileMapper(user)
+          }
+        };
+      });
+
+      it('should return an error', function(done){
+        request.get({
+          jar: request.jar(),
+          uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
+        }, function (err, response){
+          if(err) return done(err);
+          expect(response.statusCode).to.equal(400);
+          expect(response.body).to.equal('No attribute was found to generate the nameIdentifier');
+          done();
+        });
+      });
+    });
+  });
 });
 
