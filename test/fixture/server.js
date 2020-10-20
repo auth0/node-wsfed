@@ -26,10 +26,13 @@ var credentials = {
   pkcs7:    fs.readFileSync(path.join(__dirname, 'wsfed.test-cert.pb7'))
 };
 
+module.exports.options = {};
+
 module.exports.start = function(options, callback){
+  module.exports.options = options;
   if (typeof options === 'function') {
     callback = options;
-    options = {};
+    module.exports.options = {};
   }
 
   var app = express();
@@ -64,13 +67,19 @@ module.exports.start = function(options, callback){
   }
 
   //configure wsfed middleware
-  app.get('/wsfed', 
-      wsfed.auth(xtend({}, {
-        issuer:             'fixture-test',
-        getPostURL:         getPostURL,
-        cert:               credentials.cert,
-        key:                credentials.key
-      }, options)));
+  app.get('/wsfed', function(req, res, next) {
+    wsfed.auth(xtend({}, {
+      issuer:             'fixture-test',
+      getPostURL:         getPostURL,
+      cert:               credentials.cert,
+      key:                credentials.key
+    }, module.exports.options))(req, res, function(err){
+      if (err) {
+        return res.send(400, err.message);
+      }
+      next();
+    })
+  });
   
   var server = http.createServer(app).listen(5050, callback);
   module.exports.close = server.close.bind(server);
