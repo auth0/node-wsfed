@@ -4,7 +4,8 @@
   "description": "WSFed server middleware",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -24,15 +25,25 @@
     "saml": "^0.12.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
     "chai": "~1.5.0",
+    "cheerio": "0.22.0",
+    "debug": "~3.2.6",
     "express": "~3.1.0",
+    "husky": "^4.3.0",
     "mocha": "~1.8.1",
     "request": "~2.14.0",
-    "xmldom": "=0.1.15",
-    "cheerio": "0.22.0",
+    "standard-version": "^9.0.0",
     "xml-crypto": "~0.10.1",
+    "xml-encryption": "0.11.0",
+    "xmldom": "=0.1.15",
     "xpath": "0.0.5",
-    "xtend": "~2.0.3",
-    "xml-encryption": "0.11.0"
+    "xtend": "~2.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
