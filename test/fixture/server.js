@@ -37,11 +37,9 @@ module.exports.start = function(options, callback){
 
   var app = express();
 
-  app.configure(function(){
-    this.use(function(req,res,next){
-      req.user = fakeUser;
-      next();
-    });
+  app.use(function(req,res,next){
+    req.user = fakeUser;
+    next();
   });
 
   app.get('/wsfed/FederationMetadata/2007-06/FederationMetadata.xml',
@@ -75,7 +73,7 @@ module.exports.start = function(options, callback){
       key:                credentials.key
     }, module.exports.options))(req, res, function(err){
       if (err) {
-        return res.send(400, err.message);
+        return res.status(400).send(err.message);
       }
       next();
     })
