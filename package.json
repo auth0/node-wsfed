@@ -17,7 +17,7 @@
     "auth"
   ],
   "author": "Auth0",
-  "license": "mit",
+  "license": "MIT",
   "dependencies": {
     "@auth0/thumbprint": "0.0.6",
     "ejs": "2.5.5",
@@ -29,7 +29,6 @@
     "@commitlint/config-conventional": "^11.0.0",
     "chai": "~1.5.0",
     "cheerio": "0.22.0",
-    "debug": "~3.2.6",
     "express": "~4.17.1",
     "husky": "^4.3.0",
     "mocha": "~8.2.0",
@@ -37,7 +36,7 @@
     "standard-version": "^9.0.0",
     "xml-crypto": "~0.10.1",
     "xml-encryption": "1.2.1",
-    "xmldom": "=0.1.15",
+    "xmldom": "~0.1.17",
     "xpath": "0.0.5",
     "xtend": "~2.0.3"
   },
