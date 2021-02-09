@@ -204,7 +204,7 @@ describe('wsfed', function () {
   });
 
   describe('using custom profile mapper', function() {
-    describe('when NameIdentifier is found', function() {
+    describe('when NameIdentifier and NameIdentifierFormat have been configured', function() {
       const fakeNameIdentifier = 'fakeNameIdentifier';
       const fakeNameIdentifierFormat = 'fakeNameIdentifierFormat';
 
