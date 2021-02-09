@@ -205,7 +205,6 @@ describe('wsfed', function () {
 
   describe('using custom profile mapper', function() {
     describe('when NameIdentifier is found', function() {
-      var body, $, signedAssertion, attributes;
       const fakeNameIdentifier = 'fakeNameIdentifier';
       const fakeNameIdentifierFormat = 'fakeNameIdentifierFormat';
 
@@ -222,36 +221,80 @@ describe('wsfed', function () {
         };
       }
 
-      before(function (done) {
+      before(function () {
         server.options = {
           profileMapper: function createProfileMapper(user) {
-            return new ProfileMapper(user)
+            return new ProfileMapper(user);
           }
         };
+      });
 
-        request.get({
-          jar: request.jar(),
-          uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
-        }, function (err, response, b) {
-          if (err) return done(err);
-          body = b;
-          $ = cheerio.load(body);
-          var wresult = $('input[name="wresult"]').attr('value');
-          signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
-          attributes = xmlhelper.getAttributes(signedAssertion);
-          done();
+      describe('when nameIdentifierFormat option has been passed', function() {
+
+        const fakeOptionNameIdentifierFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:swfedfakeformat';
+        var body, $, signedAssertion, attributes;
+
+        before(function(done) {
+
+          server.options.nameIdentifierFormat = fakeOptionNameIdentifierFormat;
+
+          request.get({
+            jar: request.jar(),
+            uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
+          }, function (err, response, b) {
+            if (err) return done(err);
+            body = b;
+            $ = cheerio.load(body);
+            var wresult = $('input[name="wresult"]').attr('value');
+            signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
+            attributes = xmlhelper.getAttributes(signedAssertion);
+            done();
+          });
         });
+
+        it('should set name identifier', function() {
+          const nameIdentifierValue = xmlhelper.getNameIdentifier(signedAssertion).textContent;
+          expect(nameIdentifierValue).to.equal(fakeNameIdentifier);
+        });
+
+        it('should set name identifier format', function() {
+          const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
+          const formatAttributeValue = nameIdentifier.getAttribute('Format');
+          expect(formatAttributeValue).to.equal(fakeNameIdentifierFormat);
+        });
+
       });
 
-      it('should set name identifier', function() {
-        const nameIdentifierValue = xmlhelper.getNameIdentifier(signedAssertion).textContent;
-        expect(nameIdentifierValue).to.equal(fakeNameIdentifier);
-      });
+      describe('when nameIdentifierFormat option has NOT been passed', function() {
 
-      it('should set name identifier format', function() {
-        const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
-        const formatAttributeValue = nameIdentifier.getAttribute('Format');
-        expect(formatAttributeValue).to.equal(fakeNameIdentifierFormat);
+        var body, $, signedAssertion, attributes;
+
+        before(function(done) {
+          request.get({
+            jar: request.jar(),
+            uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
+          }, function (err, response, b) {
+            if (err) return done(err);
+            body = b;
+            $ = cheerio.load(body);
+            var wresult = $('input[name="wresult"]').attr('value');
+            signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
+            attributes = xmlhelper.getAttributes(signedAssertion);
+            done();
+          });
+        });
+
+        it('should set name identifier', function() {
+          const nameIdentifierValue = xmlhelper.getNameIdentifier(signedAssertion).textContent;
+          expect(nameIdentifierValue).to.equal(fakeNameIdentifier);
+        });
+
+        it('should set name identifier format', function() {
+          const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
+          const formatAttributeValue = nameIdentifier.getAttribute('Format');
+          expect(formatAttributeValue).to.equal(fakeNameIdentifierFormat);
+        });
+
       });
     });
 
