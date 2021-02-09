@@ -204,6 +204,57 @@ describe('wsfed', function () {
   });
 
   describe('using custom profile mapper', function() {
+    describe('when NameIdentifier is found', function() {
+      var body, $, signedAssertion, attributes;
+      const fakeNameIdentifier = 'fakeNameIdentifier';
+      const fakeNameIdentifierFormat = 'fakeNameIdentifierFormat';
+
+      function ProfileMapper(user) {
+        this.user = user;
+      }
+      ProfileMapper.prototype.getClaims = function () {
+        return this.user;
+      }
+      ProfileMapper.prototype.getNameIdentifier = function () {
+        return {
+          nameIdentifier: fakeNameIdentifier,
+          nameIdentifierFormat: fakeNameIdentifierFormat,
+        };
+      }
+
+      before(function (done) {
+        server.options = {
+          profileMapper: function createProfileMapper(user) {
+            return new ProfileMapper(user)
+          }
+        };
+
+        request.get({
+          jar: request.jar(),
+          uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
+        }, function (err, response, b) {
+          if (err) return done(err);
+          body = b;
+          $ = cheerio.load(body);
+          var wresult = $('input[name="wresult"]').attr('value');
+          signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
+          attributes = xmlhelper.getAttributes(signedAssertion);
+          done();
+        });
+      });
+
+      it('should set name identifier', function() {
+        const nameIdentifierValue = xmlhelper.getNameIdentifier(signedAssertion).textContent;
+        expect(nameIdentifierValue).to.equal(fakeNameIdentifier);
+      });
+
+      it('should set name identifier format', function() {
+        const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
+        const formatAttributeValue = nameIdentifier.getAttribute('Format');
+        expect(formatAttributeValue).to.equal(fakeNameIdentifierFormat);
+      });
+    });
+
     describe('when NameIdentifier is not found', function(){
       function ProfileMapper(user) {
         this.user = user;
