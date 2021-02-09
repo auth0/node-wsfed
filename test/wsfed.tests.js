@@ -58,7 +58,6 @@ describe('wsfed', function () {
       expect(algorithm).to.equal('http://www.w3.org/2001/04/xmlenc#sha256');
     });
 
-
     it('should map every attributes from profile', function(){
       function validateAttribute(position, name, value) {
         expect(attributes[position].getAttribute('AttributeName'))
@@ -79,6 +78,12 @@ describe('wsfed', function () {
         .to.equal(server.fakeUser.id);
     });
 
+    it('should set name identifier format to urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified by default', function (){
+      const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
+      const formatAttributeValue = nameIdentifier.getAttribute('Format');
+      expect(formatAttributeValue).to.equal('urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified');
+    });
+
     it('should contains the issuer', function(){
       expect(xmlhelper.getIssuer(signedAssertion))
         .to.equal('urn:fixture-test');
@@ -91,6 +96,34 @@ describe('wsfed', function () {
 
     it('should contain the callback', function () {
       expect($('form').attr('action')).to.equal('http://office.google.com');
+    });
+  });
+
+  describe('when using a different name identifier format', function (){
+    var body, $, signedAssertion, attributes;
+
+    const fakeNameIdentifierFomat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:swfedfakeformat';
+
+    before(function (done) {
+      server.options = { nameIdentifierFormat: fakeNameIdentifierFomat };
+      request.get({
+        jar: request.jar(),
+        uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
+      }, function (err, response, b){
+          if(err) return done(err);
+          body = b;
+          $ = cheerio.load(body);
+          var wresult = $('input[name="wresult"]').attr('value');
+          signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
+          attributes = xmlhelper.getAttributes(signedAssertion);
+          done();
+      });
+    });
+
+    it(`should set name identifier format to ${fakeNameIdentifierFomat}`, function (){
+      const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
+      const formatAttributeValue = nameIdentifier.getAttribute('Format');
+      expect(formatAttributeValue).to.equal(fakeNameIdentifierFomat);
     });
   });
 
