@@ -204,7 +204,7 @@ describe('wsfed', function () {
   });
 
   describe('using custom profile mapper', function() {
-    describe('when NameIdentifier and NameIdentifierFormat have been configured', function() {
+    describe('when NameIdentifier and NameIdentifierFormat have been configured in the profile mapper', function() {
       const fakeNameIdentifier = 'fakeNameIdentifier';
       const fakeNameIdentifierFormat = 'fakeNameIdentifierFormat';
       let body, $, signedAssertion, attributes;
@@ -245,7 +245,7 @@ describe('wsfed', function () {
         });
       }
 
-      describe('when nameIdentifierFormat option has been passed', function() {
+      describe('when a name identifier format is passed as an auth option', function() {
 
         const fakeOptionNameIdentifierFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:swfedfakeformat';
 
@@ -267,7 +267,7 @@ describe('wsfed', function () {
 
       });
 
-      describe('when nameIdentifierFormat option has NOT been passed', function() {
+      describe('when a name identifier format is NOT passed as an auth option', function() {
 
         before(function(done) {
           createRequest(done);
