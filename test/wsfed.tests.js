@@ -138,7 +138,7 @@ describe('wsfed', function () {
         var $ = cheerio.load(body);
         var wresult = $('input[name="wresult"]').attr('value');
         var signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
-        
+
         expect(xmlhelper.getAudiences(signedAssertion)[0].textContent)
           .to.equal('urn:auth0:superclient');
 
@@ -207,6 +207,7 @@ describe('wsfed', function () {
     describe('when NameIdentifier and NameIdentifierFormat have been configured', function() {
       const fakeNameIdentifier = 'fakeNameIdentifier';
       const fakeNameIdentifierFormat = 'fakeNameIdentifierFormat';
+      var body, $, signedAssertion, attributes;
 
       function ProfileMapper(user) {
         this.user = user;
@@ -229,27 +230,28 @@ describe('wsfed', function () {
         };
       });
 
+      function createRequest(done) {
+        request.get({
+          jar: request.jar(),
+          uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
+        }, function (err, response, b) {
+          if (err) return done(err);
+          body = b;
+          $ = cheerio.load(body);
+          var wresult = $('input[name="wresult"]').attr('value');
+          signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
+          attributes = xmlhelper.getAttributes(signedAssertion);
+          done();
+        });
+      }
+
       describe('when nameIdentifierFormat option has been passed', function() {
 
         const fakeOptionNameIdentifierFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:swfedfakeformat';
-        var body, $, signedAssertion, attributes;
 
         before(function(done) {
-
           server.options.nameIdentifierFormat = fakeOptionNameIdentifierFormat;
-
-          request.get({
-            jar: request.jar(),
-            uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
-          }, function (err, response, b) {
-            if (err) return done(err);
-            body = b;
-            $ = cheerio.load(body);
-            var wresult = $('input[name="wresult"]').attr('value');
-            signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
-            attributes = xmlhelper.getAttributes(signedAssertion);
-            done();
-          });
+          createRequest(done);
         });
 
         it('should set name identifier', function() {
@@ -267,21 +269,8 @@ describe('wsfed', function () {
 
       describe('when nameIdentifierFormat option has NOT been passed', function() {
 
-        var body, $, signedAssertion, attributes;
-
         before(function(done) {
-          request.get({
-            jar: request.jar(),
-            uri: 'http://localhost:5050/wsfed?wa=wsignin1.0&wctx=123&wtrealm=urn:the-super-client-id'
-          }, function (err, response, b) {
-            if (err) return done(err);
-            body = b;
-            $ = cheerio.load(body);
-            var wresult = $('input[name="wresult"]').attr('value');
-            signedAssertion = /<t:RequestedSecurityToken>(.*)<\/t:RequestedSecurityToken>/.exec(wresult)[1];
-            attributes = xmlhelper.getAttributes(signedAssertion);
-            done();
-          });
+          createRequest(done);
         });
 
         it('should set name identifier', function() {
