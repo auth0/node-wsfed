@@ -120,7 +120,7 @@ describe('wsfed', function () {
       });
     });
 
-    it(`should set name identifier format to the passed auth option`, function (){
+    it('should set name identifier format to the passed auth option', function (){
       const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
       const formatAttributeValue = nameIdentifier.getAttribute('Format');
       expect(formatAttributeValue).to.equal(fakeNameIdentifierFomat);
