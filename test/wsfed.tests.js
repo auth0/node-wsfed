@@ -99,7 +99,7 @@ describe('wsfed', function () {
     });
   });
 
-  describe('when using a different name identifier format', function (){
+  describe('when a name identifier format is passed as an auth option', function (){
     var body, $, signedAssertion, attributes;
 
     const fakeNameIdentifierFomat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:swfedfakeformat';
@@ -120,7 +120,7 @@ describe('wsfed', function () {
       });
     });
 
-    it(`should set name identifier format to ${fakeNameIdentifierFomat}`, function (){
+    it(`should set name identifier format to the passed auth option`, function (){
       const nameIdentifier = xmlhelper.getNameIdentifier(signedAssertion);
       const formatAttributeValue = nameIdentifier.getAttribute('Format');
       expect(formatAttributeValue).to.equal(fakeNameIdentifierFomat);
