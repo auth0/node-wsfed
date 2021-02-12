@@ -22,7 +22,8 @@
     "@auth0/thumbprint": "0.0.6",
     "ejs": "2.5.5",
     "jsonwebtoken": "~5.0.4",
-    "saml": "^1.0.0"
+    "saml": "^1.0.0",
+    "xtend": "~2.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -37,8 +38,7 @@
     "xml-crypto": "~0.10.1",
     "xml-encryption": "1.2.1",
     "xmldom": "~0.1.17",
-    "xpath": "0.0.5",
-    "xtend": "~2.0.3"
+    "xpath": "0.0.5"
   },
   "husky": {
     "hooks": {
