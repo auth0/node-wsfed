@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/auth0/node-wsfed/compare/v6.0.0...v6.1.0) (2021-02-12)
+
+
+### Features
+
+* adding support for name identifier format option ([2228a7a](https://github.com/auth0/node-wsfed/commit/2228a7afd44ffbbb139e32954265d0c30dc87a36))
+
+
+### Bug Fixes
+
+* add back support for custom profile mapper for nameIdentifierFormat ([c0d932b](https://github.com/auth0/node-wsfed/commit/c0d932bb2a3ce0d38dbf33f1a619398265ff81d0))
+* make xtend a production dependency ([26f3dc4](https://github.com/auth0/node-wsfed/commit/26f3dc411bb07fa492041e3fea6aeda5e96977f2))
+
 ## [6.0.0](https://github.com/auth0/node-wsfed/compare/v5.0.0...v6.0.0) (2020-11-04)
 
 
