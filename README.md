@@ -10,7 +10,7 @@ WS Federation middleware for node.js.
 
 This middleware is meant to generate a valid WSFederation endpoint that talks saml.
 
-The idea is that you will use another mechanism to valida the user first.
+The idea is that you will use another mechanism to validate the user first.
 
 The endpoint supports metadata as well in the url ```/FederationMetadata/2007-06/FederationMetadata.xml```.
 
