@@ -8,9 +8,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 - Stops support for node versions < 12
 - When using signed JWT assertions (https://github.com/auth0/node-wsfed#jwt), new restrictions apply. See ([jsonwebtokenv9.0.0]https://github.com/auth0/node-jsonwebtoken/wiki/Migration-Notes:-v8-to-v9). In particular: 
-  - RSA key size must be 2048 bits or greater.
+  - RSA key size must be 2048 bits or greater. (unless the not recommended and insecure option jwtAllowInsecureKeySizes is used)
   - Asymmetric keys cannot be used to sign HMAC tokens.
-  - Key types must be valid for the signing algorithm
+  - Key types must be valid for the signing algorithm (unless the not recommended and insecure option jwtAllowInvalidAsymmetricKeyTypes is used)
 
 
 ### Security

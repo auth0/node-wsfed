@@ -35,6 +35,10 @@ module.exports.start = function(options, callback){
     module.exports.options = {};
   }
 
+  if (!options.credentials) {
+    options.credentials = credentials;
+  }
+
   var app = express();
 
   app.use(function(req,res,next){
@@ -44,7 +48,7 @@ module.exports.start = function(options, callback){
 
   app.get('/wsfed/FederationMetadata/2007-06/FederationMetadata.xml',
       wsfed.metadata({
-        cert:   credentials.cert,
+        cert:   options.credentials.cert,
         issuer: 'fixture-test'
       }));
 
@@ -53,8 +57,8 @@ module.exports.start = function(options, callback){
 
   app.post('/wsfed/adfs/fs/federationserverservice.asmx',
       wsfed.federationServerService.thumbprint({
-        pkcs7: credentials.pkcs7,
-        cert:  credentials.cert
+        pkcs7: options.credentials.pkcs7,
+        cert:  options.credentials.cert
       }));
 
   function getPostURL (wtrealm, wreply, req, callback) {
@@ -69,8 +73,8 @@ module.exports.start = function(options, callback){
     wsfed.auth(xtend({}, {
       issuer:             'fixture-test',
       getPostURL:         getPostURL,
-      cert:               credentials.cert,
-      key:                credentials.key
+      cert:               options.credentials.cert,
+      key:                options.credentials.key,
     }, module.exports.options))(req, res, function(err){
       if (err) {
         return res.status(400).send(err.message);
