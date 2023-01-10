@@ -8,9 +8,9 @@ WS Federation middleware for node.js.
 
 ## Introduction
 
-This middleware is meant to generate a valid WSFederation endpoint that talks saml.
+This Express middleware is meant to generate a valid WSFederation endpoint that talks saml.
 
-The idea is that you will use another mechanism to valida the user first.
+The idea is that you will use another mechanism to validate the user first.
 
 The endpoint supports metadata as well in the url ```/FederationMetadata/2007-06/FederationMetadata.xml```.
 
@@ -20,17 +20,21 @@ Options
 
 | Name                | Description                                      | Default                                      |
 | --------------------|:-------------------------------------------------| ---------------------------------------------|
-| cert                | public key used by this identity provider        | REQUIRED                                     |
-| key                 | private key used by this identity provider       | REQUIRED                                     |
-| getPostURL          | get the url to post the token f(wtrealm, wreply, req, callback)                | REQUIRED                                     |
-| issuer              | the name of the issuer of the token              | REQUIRED                                     |
-| audience            | the audience for the saml token                  | req.query.wtrealm || req.query.wreply        |
-| getUserFromRequest  | how to extract the user information from request | function(req) { return req.user; }           |
-| profileMapper       | mapper to map users to claims (see PassportProfileMapper)| PassportProfileMapper |
-| signatureAlgorithm  | signature algorithm, options: rsa-sha1, rsa-sha256 | ```'rsa-sha256'``` |
-| digestAlgorithm     | digest algorithm, options: sha1, sha256          | ```'sha256'``` |
-| wctx                | state of the auth process                        | ```req.query.wctx``` |
-
+| getPostURL| the function receives 4 parameters from the request (wtrealm, wreply, request, callback). It must return, via the calback, the URL to post the result response to | REQUIRED       
+| getUserFromRequest| the function receives one parameter, the request. It must return the user being authenticated, as an object. This object will be passed to the profile mapper to determine attributes of the response. | `function(req){ return req.user; }`
+| profileMapper| a ProfileMapper implementation to convert a user profile to claims  (PassportProfile)  | PassportProfileMapper
+| cert| The public key / certificate of the issuer, in PEM format. | REQUIRED
+| key| The private key of the issuer, used to sign the response, in PEM format.  | REQUIRED
+| issuer| the name of the issuer of the response. | 
+| audience| the name of the audience of the response. | 
+| lifetime| The lifetime of the response, in seconds| 8 hours
+| signatureAlgorithm| signature algorithm, options: rsa-sha1, rsa-sha256 | rsa-sha256
+| digestAlgorithm| digest algorithm, options: sha1, sha256  | sha256
+| jwt| if true, uses a JWT token for the signed assertion.  | false
+| extendJWT| An object that, is passed, contains claims to be added to JWT signed assertion. | {}
+| jwtAlgorithm| If using JWT signed assertion, indicates the algorithm to be applied | RS256
+| jwtAllowInsecureKeySizes| Insecure and not recommended, for backward compatibility ONLY. If true, allows insecure key sizes to be used when signing with JWT| false
+| jwtAllowInvalidAsymmetricKeyTypes| Insecure and not recommended, for backward compatibility ONLY. If true, allows a mismatch between JWT algorithm and the actual key type provided to sign. | false
 
 Add the middleware as follows:
 
@@ -40,8 +44,8 @@ app.get('/wsfed', wsfed.auth({
   cert:       fs.readFileSync(path.join(__dirname, 'some-cert.pem')),
   key:        fs.readFileSync(path.join(__dirname, 'some-cert.key')),
   getPostURL: function (wtrealm, wreply, req, callback) {
-                return cb( null, 'http://someurl.com')
-              }
+    return cb( null, 'http://someurl.com')
+  }
 }));
 ~~~~
 
@@ -99,6 +103,13 @@ app.get('/wsfed', wsfed.auth({
               }
 }));
 ~~~~
+
+Use the option `extendJWT` to add claims to the resulted token. `jwtAlgorithm` option allows to customize the algorithm used to sign tokens.  
+
+Since version 7.0.0, restrictions apply on the signature of JWT tokens: 
+- RSA key size must be 2048 bits or greater. (unless the not recommended and insecure option `jwtAllowInsecureKeySizes` is used)
+- Asymmetric keys cannot be used to sign HMAC tokens.
+- Key types must be valid for the signing algorithm (unless the not recommended and insecure option `jwtAllowInvalidAsymmetricKeyTypes` is used)
 
 ## Issue Reporting
 

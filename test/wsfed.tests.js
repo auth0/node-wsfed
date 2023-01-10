@@ -3,8 +3,6 @@ const server = require('./fixture/server');
 const request = require('request');
 const cheerio = require('cheerio');
 const xmlhelper = require('./xmlhelper');
-const fs = require('fs');
-const path = require('path');
 
 describe('wsfed', function () {
   before(function (done) {
