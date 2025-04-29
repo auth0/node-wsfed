@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@auth0/thumbprint": "0.0.6",
-    "ejs": "2.5.5",
+    "ejs": "^3.1.10",
     "jsonwebtoken": "^9.0.0",
     "saml": "^1.0.0",
     "xtend": "~2.0.3"
