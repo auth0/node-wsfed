@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://github.com/auth0/node-wsfed/compare/v7.0.0...v7.0.1) (2025-05-08)
+
+
+### Bug Fixes
+
+* update ejs to 3.1.10 ([#32](https://github.com/auth0/node-wsfed/issues/32)) ([bf73fff](https://github.com/auth0/node-wsfed/commit/bf73fff7fa06903c7fc35cc8fdcb72cc249334c0))
+* update saml to 3.0.1 ([#33](https://github.com/auth0/node-wsfed/issues/33)) ([eb0dede](https://github.com/auth0/node-wsfed/commit/eb0dede47d5d52bfd83d809d8f11db111e6dffd0))
+
 ## [7.0.0]
 
 ### ⚠ BREAKING CHANGES
