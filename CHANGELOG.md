@@ -1,3 +1,9 @@
+## [7.0.2](https://github.com/auth0/node-wsfed/compare/v7.0.1...v7.0.2) (2026-03-11)
+
+
+### Chore
+
+* add semantic-release automation ([#36](https://github.com/auth0/node-wsfed/issues/36)) ([d3cc1ea](https://github.com/auth0/node-wsfed/commit/d3cc1eae2e494279b78745237c6d1177b8271d41))
 ### [7.0.1](https://github.com/auth0/node-wsfed/compare/v7.0.0...v7.0.1) (2025-05-08)
 
 
