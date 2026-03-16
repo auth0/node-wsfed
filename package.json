@@ -18,6 +18,14 @@
   ],
   "author": "Auth0",
   "license": "MIT",
+  "files": [
+    "lib/",
+    "templates/",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "dependencies": {
     "@auth0/thumbprint": "0.0.6",
     "ejs": "^3.1.10",
