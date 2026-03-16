@@ -14,7 +14,6 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment: release
     if: startsWith(github.event.head_commit.message, 'chore(release):')
 
     steps:
