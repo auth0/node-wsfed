@@ -1,3 +1,9 @@
+## [7.0.3](https://github.com/auth0/node-wsfed/compare/v7.0.2...v7.0.3) (2026-03-16)
+
+
+### Bug Fixes
+
+* update dist files ([#44](https://github.com/auth0/node-wsfed/issues/44)) ([df07247](https://github.com/auth0/node-wsfed/commit/df072479ec46983e4ce9e26fb5cc651fc170008b))
 ## [7.0.2](https://github.com/auth0/node-wsfed/compare/v7.0.1...v7.0.2) (2026-03-11)
 
 
