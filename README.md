@@ -35,6 +35,11 @@ Options
 | jwtAlgorithm| If using JWT signed assertion, indicates the algorithm to be applied | RS256
 | jwtAllowInsecureKeySizes| Insecure and not recommended, for backward compatibility ONLY. If true, allows insecure key sizes to be used when signing with JWT| false
 | jwtAllowInvalidAsymmetricKeyTypes| Insecure and not recommended, for backward compatibility ONLY. If true, allows a mismatch between JWT algorithm and the actual key type provided to sign. | false
+| encryptionPublicKey | Public key used to encrypt the SAML assertion |
+| encryptionCert | Certificate used to encrypt SAML assertion |
+| encryptionAlgorithm | The encryption algorithm to encrypt saml assertion | http://www.w3.org/2009/xmlenc11#aes256-gcm ( [node-xml-encryption](https://github.com/auth0/node-xml-encryption/blob/master/README.md) details the available encryption algorithms and configuration options.)
+| disallowEncryptionWithInsecureAlgorithm | If true, disallows encryption with algorithms considered insecure by [node-xml-encryption](https://github.com/auth0/node-xml-encryption/blob/master/README.md) | true
+| warnOnInsecureEncryptionAlgorithm | If true, logs a warning when using an insecure encryption algorithm | true
 
 Add the middleware as follows:
 
