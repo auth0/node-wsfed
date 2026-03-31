@@ -1,3 +1,14 @@
+# [8.0.0](https://github.com/auth0/node-wsfed/compare/v7.0.3...v8.0.0) (2026-03-31)
+
+
+### Features
+
+* add encryption algorithm options ([#47](https://github.com/auth0/node-wsfed/issues/47)) ([5f53685](https://github.com/auth0/node-wsfed/commit/5f53685feeb4f07c5b87a2da7d1b1e791fe94c3a))
+
+
+### BREAKING CHANGES
+
+* adding encryption algorithm in options(if not set, defaults to http://www.w3.org/2009/xmlenc11#aes256-gcm), adding disallowEncryptionWithInsecureAlgorithm to enforce secure encryption algorithms
 ## [7.0.3](https://github.com/auth0/node-wsfed/compare/v7.0.2...v7.0.3) (2026-03-16)
 
 
