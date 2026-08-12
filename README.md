@@ -1,3 +1,9 @@
+> # ⚠️ This repository is being archived
+>
+> **`node-wsfed` is no longer actively maintained and will be archived (made read-only) on 2 November 2026.**
+>
+> For details and to ask questions, see the [pinned announcement issue](https://github.com/auth0/node-wsfed/issues/50).
+
 WS Federation middleware for node.js.
 
 [![Build Status](https://travis-ci.org/auth0/node-wsfed.png)](https://travis-ci.org/auth0/node-wsfed)
